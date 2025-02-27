@@ -35,7 +35,9 @@ st.sidebar.header("🔢 Input Data")
 def generate_random_data():
     return {col: np.random.uniform(X[col].min(), X[col].max()) for col in feature_columns}
 
-if st.sidebar.button("🎲 Generate Random Data"):
+col1, col2 = st.sidebar.columns(2)
+
+if col1.button("🎲 Generate Random Data"):
     st.session_state.random_data = generate_random_data()
 
 if "random_data" not in st.session_state:
@@ -54,7 +56,7 @@ st.sidebar.write("🔍 Input Data Before Scaling:", input_data)
 st.sidebar.write("🔍 Scaled Input Data:", input_scaled)
 
 # Predict Button
-if st.sidebar.button("🚀 Predict"):
+if col2.button("🚀 Predict"):
     st.session_state.svm_prediction = svm_model.predict(input_scaled)[0]
     st.session_state.rf_prediction = rf_model.predict(input_scaled)[0]
     st.session_state.prediction_made = True

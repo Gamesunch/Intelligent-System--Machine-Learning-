@@ -16,6 +16,12 @@ df = pd.read_csv("Life Expectancy Data.csv")
 # Clean column names
 df.columns = df.columns.str.strip()
 
+# Visualizing missing values before cleaning
+plt.figure(figsize=(10, 6))
+sns.heatmap(df.isnull(), cmap='viridis', cbar=False, yticklabels=False)
+plt.title("Missing Values Before Cleaning")
+plt.show()
+
 # Encode categorical 'Status'
 df["Status"] = df["Status"].map({"Developing": 0, "Developed": 1})
 
