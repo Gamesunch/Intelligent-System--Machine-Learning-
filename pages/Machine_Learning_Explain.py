@@ -100,3 +100,24 @@ rf_grid = GridSearchCV(RandomForestRegressor(random_state=42), rf_param_grid, cv
 rf_grid.fit(X_train, y_train)
 best_rf_model = rf_grid.best_estimator_
 """, language="python")
+
+st.header("📌 **Model Evaluation**")
+st.write("เราจะทำการประเมินโมเดลทั้ง 2 โมเดล ด้วยค่า R2 Score และ Mean Absolute Error (MAE) ด้วยคำสั่ง:")
+st.code("""
+svm_r2 = best_svm_model.score(X_test, y_test)
+rf_r2 = best_rf_model.score(X_test, y_test) 
+svm_mae = mean_absolute_error(y_test, best_svm_model.predict(X_test))
+rf_mae = mean_absolute_error(y_test, best_rf_model.predict(X_test))
+""", language="python")
+st.write("ซืึงจะได้ค่า R2 Score และ Mean Absolute Error ของ SVM และ Random Forest ออกมาเป็น")
+st.write("#### 🔹 SVM Performance")
+st.write("- **MAE:** 2.0701")
+st.write("- **RMSE:** 3.0294")
+st.write("- **R² Score:** 0.8939")
+
+st.write("#### 🔹 Random Forest Performance")
+st.write("- **MAE:** 1.0766")
+st.write("- **RMSE:** 1.7281")
+st.write("- **R² Score:** 0.9655")
+
+st.image("image/ML/compare.png")
