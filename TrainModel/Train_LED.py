@@ -13,8 +13,14 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 # Load dataset
 df = pd.read_csv("Life Expectancy Data.csv")
 
+df.head()
+
+df.tail()
+
 # Clean column names
 df.columns = df.columns.str.strip()
+
+df.isnull().sum()
 
 # Visualizing missing values before cleaning
 plt.figure(figsize=(10, 6))
