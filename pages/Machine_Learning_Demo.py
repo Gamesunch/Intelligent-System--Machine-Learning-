@@ -24,20 +24,20 @@ st.title("🌍 Life Expectancy Prediction")
 st.markdown("""
 Welcome to the **Life Expectancy Predictor**! 🏥📊
 
-This tool uses **SVM and Random Forest models** to predict life expectancy based on key health and economic indicators.
+เครื่องมืออันนี้จะช่วยคุณในการพยากรณ์อายุขัยเฉลี่ยของประชากรในประเทศต่างๆ โดยใช้โมเดล SMV และ Random Forest 
 
-👉 Enter values manually or **generate random data** for predictions!
+👉 ใส่ค่าได้เลย หรือ **กดสุ่ม Data ขึ้นมา** สำหรับการทำนาย
 """, unsafe_allow_html=True)
 
 # Sidebar for Input
-st.sidebar.header("🔢 Input Data")
+st.sidebar.header("🔢 ใส่ค่า Data")
 
 def generate_random_data():
     return {col: np.random.uniform(X[col].min(), X[col].max()) for col in feature_columns}
 
 col1, col2 = st.sidebar.columns(2)
 
-if col1.button("🎲 Generate Random Data"):
+if col1.button("🎲 ปุ่มสุ่ม Data"):
     st.session_state.random_data = generate_random_data()
 
 if "random_data" not in st.session_state:
@@ -56,7 +56,7 @@ st.sidebar.write("🔍 Input Data Before Scaling:", input_data)
 st.sidebar.write("🔍 Scaled Input Data:", input_scaled)
 
 # Predict Button
-if col2.button("🚀 Predict"):
+if col2.button("🚀 ทำนายเลย"):
     st.session_state.svm_prediction = svm_model.predict(input_scaled)[0]
     st.session_state.rf_prediction = rf_model.predict(input_scaled)[0]
     st.session_state.prediction_made = True
@@ -64,8 +64,8 @@ if col2.button("🚀 Predict"):
 # Display Results
 st.header("📊 Prediction Results")
 if "svm_prediction" in st.session_state:
-    st.success(f"🌟 **SVM Prediction:** {st.session_state.svm_prediction:.2f} years")
-    st.success(f"🌲 **Random Forest Prediction:** {st.session_state.rf_prediction:.2f} years")
+    st.success(f"🌟 **SVM Prediction:** {st.session_state.svm_prediction:.2f} ปี")
+    st.success(f"🌲 **Random Forest Prediction:** {st.session_state.rf_prediction:.2f} ปี")
     
     # Load model performance data
     results_df = pd.read_csv("TrainModel/model_performance.csv")

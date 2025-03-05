@@ -17,13 +17,13 @@ st.title("📈 Nvidia Stock Price Prediction")
 st.markdown("""
 Welcome to the **Nvidia Stock Price Predictor**! 🚀
 
-This application uses an **LSTM deep learning model** to predict future stock prices of Nvidia.
+โดยเดโม่ตัวนี้จะให้คุณทำนายราคาหุ้นของ Nvidia ในวันถัดไป โดยให้คุณใส่ราคาหุ้นของ Nvidia ใน 60 วันที่ผ่านมา
 
-👉 Enter the past 60 days of stock prices to predict the next day's price!
+👉 ใส่ราคาหุุ้นเมื่อ 60 วันที่ผ่านมา
 """, unsafe_allow_html=True)
 
 # Sidebar for Input
-st.sidebar.header("🔢 Input Data")
+st.sidebar.header("🔢 ใส่ Data")
 
 def generate_random_prices():
     return np.round(np.random.uniform(350, 650, 60), 2)
@@ -37,20 +37,20 @@ if st.sidebar.button("🎲 Generate Random Data"):
     st.session_state.input_data = ",".join(map(str, generate_random_prices()))
 
 # Input Text Area
-input_data = st.sidebar.text_area("Enter the last 60 days of Nvidia stock prices (comma separated):", 
+input_data = st.sidebar.text_area("ใส่ราคาหุ้น Nvidia ใน 60 วัน (เว้นด้วยคอมม่า Ex 123,456,123):", 
                                   st.session_state.input_data, height=150)
 
 # Update session state with user input
 st.session_state.input_data = input_data
 
 # Predict Button
-if st.sidebar.button("🔮 Predict"):
+if st.sidebar.button("🔮 ทำนายยยยยยย"):
     st.session_state.predict = True
 else:
     st.session_state.predict = False
 
 # Prediction Section
-st.header("📊 Prediction Results")
+st.header("📊 ผลลัพธ์การทำนาย")
 
 if st.session_state.predict:
     try:
