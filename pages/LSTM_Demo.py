@@ -28,20 +28,33 @@ st.sidebar.header("🔢 Input Data")
 def generate_random_prices():
     return np.round(np.random.uniform(350, 650, 60), 2)
 
-if st.sidebar.button("🎲 Generate Random Data"):
-    random_prices = generate_random_prices()
-    input_data = ",".join(map(str, random_prices))
-    st.sidebar.text_area("Generated Data:", value=input_data, height=150)
+# Initialize session state for input field
+if "input_data" not in st.session_state:
+    st.session_state.input_data = "350, 355, 360, 365, 370, 375, 380, 385, 390, 395, 400, 405, 410, 415, 420, 425, 430, 435, 440, 445, 450, 455, 460, 465, 470, 475, 480, 485, 490, 495, 500, 505, 510, 515, 520, 525, 530, 535, 540, 545, 550, 555, 560, 565, 570, 575, 580, 585, 590, 595, 600, 605, 610, 615, 620, 625, 630, 635"
 
-input_data = st.sidebar.text_area("Enter the last 60 days of Nvidia stock prices (comma separated):",
-                                 "350, 355, 360, 365, 370, 375, 380, 385, 390, 395, 400, 405, 410, 415, 420, 425, 430, 435, 440, 445, 450, 455, 460, 465, 470, 475, 480, 485, 490, 495, 500, 505, 510, 515, 520, 525, 530, 535, 540, 545, 550, 555, 560, 565, 570, 575, 580, 585, 590, 595, 600, 605, 610, 615, 620, 625, 630, 635")
+# Generate Random Data Button
+if st.sidebar.button("🎲 Generate Random Data"):
+    st.session_state.input_data = ",".join(map(str, generate_random_prices()))
+
+# Input Text Area
+input_data = st.sidebar.text_area("Enter the last 60 days of Nvidia stock prices (comma separated):", 
+                                  st.session_state.input_data, height=150)
+
+# Update session state with user input
+st.session_state.input_data = input_data
+
+# Predict Button
+if st.sidebar.button("🔮 Predict"):
+    st.session_state.predict = True
+else:
+    st.session_state.predict = False
 
 # Prediction Section
 st.header("📊 Prediction Results")
 
-if input_data:
+if st.session_state.predict:
     try:
-        input_list = list(map(float, input_data.split(',')))
+        input_list = list(map(float, st.session_state.input_data.split(',')))
         
         if len(input_list) == 60:
             scaler = MinMaxScaler(feature_range=(0, 1))
