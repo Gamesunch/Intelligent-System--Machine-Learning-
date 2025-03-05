@@ -120,4 +120,4 @@ st.write("- **MAE:** 1.0766")
 st.write("- **RMSE:** 1.7281")
 st.write("- **R² Score:** 0.9655")
 
-st.image("image/ML/compare.png")
+st.image("image/ML/Compare.png")
